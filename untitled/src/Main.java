@@ -13,7 +13,7 @@
  */
 class Calculation  implements ActionListener //ActionListener 상속
 {
-   Stack <String> stack = new <String> Stack();
+   Queue<String> stack = new <String> LinkedList();
     String[] Str= new String[100];
     String[] Str2= new String[100];
     Integer[] Num3 = new Integer[100];
@@ -38,6 +38,7 @@ class Calculation  implements ActionListener //ActionListener 상속
     int num1 = 0;
     int i=0;
     int k=0;
+    int FinalSum=0;
     private Frame fr;
     private String Mul="",Mul2="";
     int Sum=0;
@@ -172,7 +173,7 @@ class Calculation  implements ActionListener //ActionListener 상속
             k++;
             Mul2="";
             num1=0;
-            stack.push("+");
+            stack.add("+");
         }
         else if(Bt1 == btMin)
         {
@@ -182,11 +183,11 @@ class Calculation  implements ActionListener //ActionListener 상속
             Num3[k]=num1;
             k++;
             Mul2="";
-            num1=0;stack.push("-");
+            num1=0;
+            stack.add("-");
         }
         else if(Bt1 == btDiv)
         {
-
             num1 = Integer.parseInt(Mul2.toString());
             Mul= Mul+"/";
             label1.setText(Mul);
@@ -194,7 +195,7 @@ class Calculation  implements ActionListener //ActionListener 상속
             k++;
             Mul2="";
             num1=0;
-            stack.push("/");
+            stack.add("/");
         }
         else if(Bt1 == btmul)
         {
@@ -205,15 +206,34 @@ class Calculation  implements ActionListener //ActionListener 상속
             k++;
             Mul2="";
             num1=0;
-            stack.push("*");
+            stack.add("*");
         }
         else if(Bt1 == btresult)
         {
             num1 = Integer.parseInt(Mul2.toString());
-            Mul = Mul+"=";
             Num3[k]=num1;
-            k++;
-            label1.setText(label1.getText()+" = "+Num3[k-2]);
+            num1=0;
+            Sum=Num3[0];
+            for(int J=1;J<=k;J++) {
+                if (stack.isEmpty())
+                {
+                    break;
+                }
+                else if (stack.peek() == "+") {
+                    Sum +=Num3[J];
+                    stack.poll();
+                } else if (stack.peek() == "-") {
+                    Sum += -Num3[J];
+                    stack.poll();
+                } else if (stack.peek() == "*") {
+                    Sum *= Num3[J];
+                    stack.poll();
+                } else if (stack.peek() == "/") {
+                    Sum /= Num3[J];
+                    stack.poll();
+                }
+            }
+            label1.setText(Mul+"="+Sum);
         }
     }
 }

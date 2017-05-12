@@ -1,0 +1,10 @@
+diff a/.idea/kotlinc.xml b/.idea/kotlinc.xml	(rejected hunks)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="KotlinCommonCompilerArguments">
++    <option name="languageVersion" value="1.1" />
++    <option name="apiVersion" value="1.1" />
++  </component>
++</project>
+\ No newline at end of file
